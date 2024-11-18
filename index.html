@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Matrix Code Enhanced</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100vh;
+            background: black;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="Matrix"></canvas>
+    <script>
+        const canvas = document.getElementById('Matrix');
+        const context = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const htmlTags = [
+            // Balises HTML de base
+            '<div class="container">', '</div>', '<span>', '</span>',
+            '<p class="text">', '</p>', '<h1>', '</h1>', '<h2>', '</h2>',
+            '<h3>', '</h3>', '<a href="#">', '</a>', '<img src="image.jpg">',
+            
+            // Balises de formulaire
+            '<form action="/submit">', '</form>', 
+            '<input type="text">', '<input type="password">', 
+            '<button type="submit">', '</button>',
+            '<textarea>', '</textarea>', '<select>', '</select>',
+            
+            // Balises sémantiques
+            '<header>', '</header>', '<nav>', '</nav>', 
+            '<main>', '</main>', '<footer>', '</footer>',
+            '<article>', '</article>', '<section>', '</section>',
+            
+            // Balises de tableau
+            '<table>', '</table>', '<tr>', '</tr>', 
+            '<td>', '</td>', '<th>', '</th>',
+            
+            // Balises meta
+            '<meta charset="UTF-8">', '<meta name="viewport">', 
+            '<link rel="stylesheet">', '<script src="script.js">',
+            
+            // CSS snippets
+            '.container {', 'display: flex;', 'margin: 0 auto;',
+            'padding: 20px;', 'background: #fff;', 'color: #333;',
+            'border-radius: 8px;', 'box-shadow: 0 2px 4px rgba(0,0,0,0.1);',
+            
+            // JavaScript snippets
+            'function init() {', 'const element = document.querySelector();',
+            'addEventListener("click", () => {', 'console.log("Hello");',
+            'return false;', 'const data = [];', 'if (condition) {',
+            
+            // Balises HTML5
+            '<video>', '</video>', '<audio>', '</audio>',
+            '<canvas>', '</canvas>', '<svg>', '</svg>',
+            
+            // Attributs
+            'class="container"', 'id="main"', 'style="display: flex;"',
+            'data-value="123"', 'aria-label="Menu"', 'role="button"'
+        ];
+
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for(let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        // Variation de la couleur verte
+        function getGreenColor() {
+            const intensity = 150 + Math.random() * 105; // Valeurs entre 150 et 255
+            return `rgb(0, ${intensity}, 0)`;
+        }
+
+        function draw() {
+            context.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            context.font = fontSize + 'px monospace';
+
+            for(let i = 0; i < drops.length; i++) {
+                const text = htmlTags[Math.floor(Math.random() * htmlTags.length)];
+                context.fillStyle = getGreenColor(); // Variation de la couleur verte
+                context.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            for(let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+        });
+
+        setInterval(draw, 35);
+    </script>
+</body>
+</html>
